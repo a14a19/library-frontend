@@ -40,9 +40,10 @@ function BookTrans() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("e.target.date", transData.transType, transType.transactionType)
+        // console.log("e.target.date", transData.transType, transType.transactionType)
         if (transType && (transData.transType !== transType.transactionType)) {
             // update old entry amd update book
+
             await dispatch(transTypeUpdateApi({ body: { transactionType: transData.transType }, params: { bookId: path, userId: transData.userId }, options: user.token }))
             setTimeout(() => {
                 navigate("/")
@@ -70,13 +71,14 @@ function BookTrans() {
 
     const onUserChange = async (e) => {
         setTransData({ ...transData, userId: e.target.value })
-
+        console.log(e.target.value);
         if (user) {
             const getData = await dispatch(getTransTypeUpdateApi({ body: "", params: { bookId: path, userId: e.target.value }, options: user.token }))
             if (getData.payload.data.length > 0) {
-                setTransData({ ...transData, transType: getData.payload.data[0].transactionType, date: getData.payload.data[0].dueDate.split("T")[0] })
+                setTransData({ ...transData, userId: e.target.value, transType: getData.payload.data[0].transactionType, date: getData.payload.data[0].dueDate.split("T")[0] })
             }
         }
+        // setTransData({ ...transData, userId: e.target.value })
     }
 
     return (

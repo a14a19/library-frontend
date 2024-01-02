@@ -43,7 +43,7 @@ function AllBooks() {
                 bookData &&
                 bookData.map((book) => {
                     return (
-                        <div key={book._id} className="w-[280px] flex flex-col justify-between rounded-lg border border-gray-500 p-3 h-[10rem] relative">
+                        <div key={book._id} className="w-[280px] flex flex-col justify-between rounded-lg border border-gray-200 shadow-[0_0_60px_-15px_rgba(0,0,0,0.3)] p-3 h-[10rem] relative">
                             {user.role == "admin" && (
                                 <>
                                     <Link className="w-min text-base font-semibold absolute top-1 right-1" title="Edit Transaction" to={`/transactions/${book._id}`}><HiPencil /></Link>

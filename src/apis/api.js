@@ -133,3 +133,15 @@ export const getTransTypeUpdate = async (body, params, options) => {
         withCredentials: true,
     });
 }
+
+export const getBasedOnUser = async (body, params, options) => {
+    return await axios.request({
+        url: `${url}/lib-trans/user/${params}`,
+        method: "get",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${options}`
+        },
+        withCredentials: true,
+    });
+}

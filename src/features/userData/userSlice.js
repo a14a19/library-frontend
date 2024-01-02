@@ -1,14 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllUsers } from "../../apis/api";
+import { getAllUsers, getBasedOnUser } from "../../apis/api";
 
 const initialState = {
-    usersData: []
+    usersData: [],
+    userHistory: [],
 }
 
 export const getAllUsersApi = createAsyncThunk("users/AllUsers", async (str, thunkAPI) => {
     try {
         // return console.log("data login: ", str)
         return getAllUsers(str.body, str.params, str.options).then((res) => res.data).catch((e) => e.response.data)
+    } catch (e) {
+        return thunkAPI.rejectWithValue("something went wrong...")
+    }
+})
+
+export const getBasedOnUserApi = createAsyncThunk("users/getBasedOnUserApi", async (str, thunkAPI) => {
+    try {
+        // return console.log("data login: ", str)
+        return getBasedOnUser(str.body, str.params, str.options).then((res) => res.data).catch((e) => e.response.data)
     } catch (e) {
         return thunkAPI.rejectWithValue("something went wrong...")
     }
@@ -27,6 +37,10 @@ const userSlice = createSlice({
         builder.addCase(getAllUsersApi.fulfilled, (state, { payload }) => {
             // console.log(state, payload.data)
             state.usersData = payload.data;
+        })
+        builder.addCase(getBasedOnUserApi.fulfilled, (state, { payload }) => {
+            console.log(state, payload.data)
+            state.userHistory = payload.data;
         })
     }
 })

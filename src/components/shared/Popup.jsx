@@ -11,7 +11,16 @@ function Popup() {
     const user = JSON.parse(localStorage.getItem("user"));
     const dispatch = useDispatch()
 
-    function closeModal() {
+    function closeModal(e) {
+        console.log(e, "btnFree")
+        // if (bookById) {
+        //     dispatch(deleteBookAPI({ body: "", params: bookById._id, options: user.token }))
+        // }
+        return dispatch(closeErrBox())
+    }
+
+    function closeModalDel(e) {
+        console.log(e, "btn")
         if (bookById) {
             dispatch(deleteBookAPI({ body: "", params: bookById._id, options: user.token }))
         }
@@ -77,14 +86,28 @@ function Popup() {
                                 </div>
 
                                 <div className="mt-4">
-                                    <button
-                                        type="button"
-                                        className={btnCss}
-                                        onClick={closeModal}
-                                    >
-                                        {errorMsgArr.length > 0 || errorMsg && "Close"}
-                                        {bookById && "Yes"}
-                                    </button>
+                                    {
+                                        errorMsgArr.length > 0 || errorMsg
+                                        &&
+                                        <button
+                                            type="button"
+                                            className={btnCss}
+                                            onClick={closeModal}
+                                        >
+                                            Close
+                                        </button>
+                                    }
+                                    {
+                                        bookById
+                                        &&
+                                        <button
+                                            type="button"
+                                            className={btnCss}
+                                            onClick={closeModalDel}
+                                        >
+                                            Yes
+                                        </button>
+                                    }
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
